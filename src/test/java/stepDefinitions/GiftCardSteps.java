@@ -43,13 +43,15 @@ public class GiftCardSteps {
     public void submit_balance_check() throws InterruptedException {
         giftCardPage.submitCheckBalance();
         
-        Thread.sleep(10000);
+        Thread.sleep(5000);
     }
 
     @Then("the error message {string} should be displayed")
-    public void validate_error_message(String expectedMsg) {
-    	//System.out.println("This"+ expectedMsg);
+    public void validate_error_message(String expectedErrorMessage) {
+    	System.out.println("Expected msg: "+ expectedErrorMessage);
     	
-        Assert.assertEquals(expectedMsg, giftCardPage.getErrorMessage());
+    	String actualError = giftCardPage.getErrorMessage();
+    	Assert.assertEquals(actualError, expectedErrorMessage, "Error message did not match!");
+
     }
 }
