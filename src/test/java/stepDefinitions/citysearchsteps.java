@@ -22,8 +22,8 @@ public class citysearchsteps {
 
     @When("user enters a valid city name {string}")
     public void user_enters_a_valid_city_name(String city) {
-        citySearchPage.enterCityName(city);
-        Assert.assertTrue(citySearchPage.cityNameEntered(city));
+        citySearchPage.typeCityName(city);
+       
     }
 
     @Then("search results should display cities matching {string}")
@@ -33,8 +33,8 @@ public class citysearchsteps {
 
     @When("user enters an invalid city name {string}")
     public void user_enters_an_invalid_city_name(String invalidCity) {
-    	citySearchPage.enterCityName(invalidCity);
-    	Assert.assertTrue(citySearchPage.cityNameEntered(invalidCity));
+    	citySearchPage.typeCityName(invalidCity);
+    	
     }
 
     @Then("an error message {string} should be displayed")

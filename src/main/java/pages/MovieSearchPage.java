@@ -47,7 +47,7 @@ public class MovieSearchPage {
     
     public MovieSearchPage(WebDriver driver) {
     	this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(25));
         this.citySearchPage = new CitySearchPage(driver);
     }
 

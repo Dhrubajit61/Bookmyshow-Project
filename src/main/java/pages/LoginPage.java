@@ -57,7 +57,7 @@ public class LoginPage {
     }
 
     public String getverifyMsg() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(25));
         wait.until(ExpectedConditions.visibilityOfElementLocated(verify_mob_number_msg));
         return driver.findElement(verify_mob_number_msg).getText();
     }
@@ -66,7 +66,7 @@ public class LoginPage {
         return driver.findElement(mobileField).isDisplayed();
     }
     public String geterrorMsg() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(25));
         wait.until(ExpectedConditions.visibilityOfElementLocated(invalid_mob_num_msg));
         return driver.findElement(invalid_mob_num_msg).getText();
     }

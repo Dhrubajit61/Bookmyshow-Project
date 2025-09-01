@@ -14,16 +14,16 @@ import java.time.Duration;
 
 public class CitySearchPage {
     WebDriver driver;
-
+    WebDriverWait wait;
     // Locators
-    private By cityInput = By.xpath("//div[@class='sc-hyqai2-0 hswna-D']//input[@class='sc-ifipx4-9 cpXaIl']"); // Update with actual locator
+    private By cityInput = By.xpath("//input[@placeholder='Search for your city']"); // Update with actual locator
     private By citySearchModal=By.xpath("//div[@class=\"sc-hyqai2-0 hswna-D\"]");
     private By searchButton = By.id("searchBtn"); // Update with actual locator
    
     private By resultsList = By.cssSelector(".search-results .city-name"); // Update selector
     private By errorMsg = By.xpath("//div[@class=\"sc-fv93km-1 fZhJNQ\"][text()='No results found.']"); // Update with actual locator
    
-    private By selectedcity=By.xpath("//span[@class=\"sc-1or3vea-16 gPcyDI\"]");
+    private By selectedcity=By.xpath("//span[@class='sc-1or3vea-16 gPcyDI']");
     private By cityDropdown = By.id("cityDropdown"); // Dropdown button
     private By viewAllCitiesOption = By.xpath("//p[@class=\'sc-p6ayv6-0 iwwDFF\'][text()='View All Cities']"); // Link in dropdown
     private By allCitiesList = By.cssSelector(".all-cities-list .city-name"); // List of all cities in "View All Cities"
@@ -31,18 +31,18 @@ public class CitySearchPage {
     // Constructor
     public CitySearchPage(WebDriver driver) {
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(25));
     }
 
     // Verify if city modal is loaded (e.g., city input visible)
     public boolean isPageLoaded() {
         try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-            wait.until(driver -> 
-                driver.findElement(cityInput).isDisplayed() &&
-                driver.findElement(citySearchModal).isDisplayed()
-            );
+           // WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        	wait.until(ExpectedConditions.visibilityOfElementLocated(cityInput));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(citySearchModal));
             return true;
         } catch (Exception e) {
+        	System.err.println(e);
             return false;
         }
     }
@@ -51,15 +51,29 @@ public class CitySearchPage {
 
 
     // Enter city name in search input
-    public void enterCityName(String city) {
-        WebElement input = driver.findElement(cityInput);
+    public boolean typeCityName(String city) {
+        //WebElement input = driver.findElement(cityInput);
+        WebElement input=wait.until(ExpectedConditions.visibilityOfElementLocated(cityInput));
+        input.clear();
+        input.sendKeys(city);
+       // input.sendKeys(Keys.ENTER); 
+        return true;
+    }
+    public boolean enterCityName(String city) {
+        //WebElement input = driver.findElement(cityInput);
+        WebElement input=wait.until(ExpectedConditions.visibilityOfElementLocated(cityInput));
         input.clear();
         input.sendKeys(city);
         input.sendKeys(Keys.ENTER); 
+        return true;
     }
     public boolean cityNameEntered(String city) {
-        WebElement inputElement = driver.findElement(cityInput);
-        String cityValue = inputElement.getAttribute("value");
+       
+    	WebElement inputElement = wait.until(ExpectedConditions.visibilityOfElementLocated(selectedcity));
+    	
+    	
+        String cityValue = inputElement.getText();
+        System.out.println(cityValue);
         return cityValue != null && cityValue.equals(city);
     }
     public By getCityResult(String city) {
