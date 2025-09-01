@@ -102,17 +102,19 @@ public class GiftCardPage {
     }
 
 
-    public String getErrorMessage() {
+    public boolean getErrorMessage(String expectedMsg) {
         try {
             WebElement errormsg = wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessage));
-            String actualMsg = errormsg.getText().trim();  // trim optional
+            String actualMsg = errormsg.getText().trim();
             System.out.println("Error msg got: " + actualMsg);
-            return actualMsg;
+
+            // Compare expected and actual
+            return actualMsg.equals(expectedMsg);
+
         } catch (Exception e) {
-            System.err.println("Error while fetching error message: " + e);
-            return null; // or return "" depending on how you want to handle no message
+            System.err.println("Error message not found: " + e);
+            return false;  // return false if element not found or exception occurs
         }
     }
-
 
 }

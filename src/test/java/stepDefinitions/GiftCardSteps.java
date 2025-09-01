@@ -47,11 +47,10 @@ public class GiftCardSteps {
     }
 
     @Then("the error message {string} should be displayed")
-    public void validate_error_message(String expectedErrorMessage) {
-    	System.out.println("Expected msg: "+ expectedErrorMessage);
+    public void validate_error_message(String expectedMsg) {
+    	System.out.println("Expected msg: "+ expectedMsg);
     	
-    	String actualError = giftCardPage.getErrorMessage();
-    	Assert.assertEquals(actualError, expectedErrorMessage, "Error message did not match!");
-
+        //Assert.assertEquals(expectedMsg, giftCardPage.getErrorMessage());
+    	Assert.assertTrue(giftCardPage.getErrorMessage(expectedMsg));
     }
 }
