@@ -106,7 +106,7 @@ public class GiftCardPage {
         try {
             WebElement errormsg = wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessage));
             String actualMsg = errormsg.getText().trim();
-            System.out.println("Error msg got: " + actualMsg);
+            //System.out.println("Error msg got: " + actualMsg);
 
             // Compare expected and actual
             return actualMsg.equals(expectedMsg);
